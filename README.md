@@ -59,7 +59,7 @@ ec2_list = [
 
 sg_list = [
   {
-    name = "allow_ssh"
+    name = "example_allow_ssh"
     ingress = {
       description = "allow ssh from internet"
       from_port   = 22
