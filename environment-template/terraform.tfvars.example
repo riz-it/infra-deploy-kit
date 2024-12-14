@@ -1,0 +1,43 @@
+aws_access_key = "<your-access-key>"
+aws_secret_key = "<your-secret-key>"
+aws_region     = "<region>"
+aws_vpc_id     = "<your-vpc-id>"
+aws_user       = "<vm-user>"
+ec2_list = [
+  {
+    name          = "<instance-name>"
+    image_id      = "<image-id>"
+    instance_type = "<instance-type>"
+  }
+]
+
+sg_list = [
+  {
+    name = "allow_ssh"
+    ingress = {
+      description = "allow ssh from internet"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress = {
+      description = "allow all egress"
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+]
+
+key_pair_name       = "<key-pair-name>"
+gitlab_access_token = "<your-gitlab-access-token>"
+
+repository_list = [
+  {
+    name        = "<repository-name>"
+    description = "Repository for XXXX"
+    visibility  = "<private-or-public>"
+  }
+]
