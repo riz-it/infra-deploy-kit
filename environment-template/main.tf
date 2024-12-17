@@ -57,7 +57,7 @@ resource "null_resource" "create_ansible_inventory" {
 
 resource "null_resource" "ansible" {
   provisioner "local-exec" {
-    command = "sleep 80; ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i inventory.ini ansible-playbook/setup-playbook.yml -u ${var.aws_user} --private-key ${var.key_pair_name}_pem"
+    command = "sleep 80; ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i inventory.ini ansible-playbook/docker-playbook.yml -u ${var.aws_user} --private-key ${var.key_pair_name}_pem"
   }
   depends_on = [null_resource.create_ansible_inventory]
 

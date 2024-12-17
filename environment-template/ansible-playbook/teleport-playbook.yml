@@ -1,0 +1,32 @@
+---
+- name: Install Teleport on Ubuntu
+  hosts: all
+  become: true
+  vars:
+    teleport_channel: "stable"
+    teleport_pkg: "teleport"
+
+  tasks:
+    - name: Add Teleport GPG key
+      ansible.builtin.get_url:
+        url: https://apt.releases.teleport.dev/gpg
+        dest: /usr/share/keyrings/teleport-archive-keyring.asc
+        mode: "0644"
+
+    - name: Add Teleport APT repository
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/teleport.list
+        content: |
+          deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] \
+          https://apt.releases.teleport.dev/ubuntu {{ os_version_codename.stdout }} \
+          {{ teleport_channel }}
+        mode: "0644"
+
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install Teleport package
+      ansible.builtin.apt:
+        name: "{{ teleport_pkg }}"
+        state: present
